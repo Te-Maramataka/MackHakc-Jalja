@@ -10,4 +10,10 @@ public class OptionMenu : MonoBehaviour
         audioMixer.SetFloat("Volume", volumeVal);
         //Debug.Log(volumeVal);
     }
+
+    public void setSFXVolume(float SFXvolumeVal)
+    {
+        audioMixer.SetFloat("SFXVolume", SFXvolumeVal);
+        //Debug.Log(volumeVal);
+    }
 }
