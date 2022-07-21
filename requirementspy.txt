@@ -1,0 +1,9 @@
+astropy
+astroquery
+numpy
+arrow
+geopy
+pandas
+
+# how does this work with unity
+# requirements for python standalone 
