@@ -61,7 +61,7 @@ public class SoundManager : MonoBehaviour
         else
         {
             sfxMuted = false;
-            SFX.mute = SFX.mute;
+            SFX.mute = !SFX.mute;
         }
         UpdateSFXButtonImage();
     }
