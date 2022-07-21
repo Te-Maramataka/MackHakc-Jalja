@@ -6,13 +6,13 @@ import arrow
 
 #main
 
-# so stupid, governments estimates don't even make sense, literally before tangaroa period (waning) for years such as 2024, is there a gregorian shift?? 
+# so silly, governments estimates don't even make sense, literally before tangaroa period (waning) for years such as 2024, is there a gregorian shift?? 
 def calculate(year, denomination):
     # how to chuck in datea? 
     moon_data = Horizons(id='301', location='geo', epochs={'start':f'{denomination} {year}-06-18','stop':f'{denomination} {year}-07-19','step':'1d'}).ephemerides() # assuming this is for moon ripped from liang 
     prev = float(moon_data['alpha'][0]) # or is it 1 
     candidates = []
-    tangaroa = False # sorry stupid method 
+    tangaroa = False # sorry silly method 
     for i in range(1,32): 
         current = float(moon_data['alpha'][i])    
         if current > 90 and prev <= current: # naive
@@ -93,7 +93,7 @@ else:
 # Actual psuedocode/to do (thursday requires fully admin briefing) (nitty gritty): 
 # closest friday not friday after if not in period
 # make outside of tangaroa period code actually work 
-# holy shit even more niche --> day where less than previous, but peaks in the middle  like 160 PEAK 161 <-- actually the mega math, which ones do you have to check to be certain this isn't occuring. Since i can't solve this imma stop everything 
+# holy  even more niche --> day where less than previous, but peaks in the middle  like 160 PEAK 161 <-- actually the mega math, which ones do you have to check to be certain this isn't occuring. Since i can't solve this imma stop everything 
 # surface debug 
 # give some psuedocode 
 # clean up names of these tasks
@@ -102,11 +102,11 @@ else:
 # finish give some psuedocode 
 
 # finish this, comments
-# Menial Jobs (shitty gritty): 
-# Figure out library for BC (and use it i guess) --> basically reveal, do for your own (don't want code polish fucking up my understanding)
-# Debug and fix bugs (just make sure to spot how the fixes have been made) --> basically reveal, do for your own (don't want code polish fucking up my understanding)
+# Menial Jobs ( gritty): 
+# Figure out library for BC (and use it i guess) --> basically reveal, do for your own (don't want code polish  up my understanding)
+# Debug and fix bugs (just make sure to spot how the fixes have been made) --> basically reveal, do for your own (don't want code polish  up my understanding)
 # Baby math out the bonus point (if nobody else can do it might be matplotlib calling)
-# Baby api browsing and using (fucking gay) 
+# Baby api browsing and using ( gay) 
 # period is smaller for some reason, first 4 days for some reason someone else can figure outhttps://www.mbie.govt.nz/assets/maSpring%20Equinoxtariki-dates-2022-to-2052-matariki-advisory-group.pdf
 #sources lmao https://www.mbie.govt.nz/assets/matariki-dates-2022-to-2052-matariki-advisory-group.pdf
 
