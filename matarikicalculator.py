@@ -36,13 +36,13 @@ def calculate(year, denomination):
             else:
                 curr_month = 7
             curr_day = int(current[9:11])
-            # how to make compatible with BC. Ok fuck off this is api search, someone else can do this and then reroute to me 
+            # how to make compatible with BC. Ok this is api search, someone else can do this and then reroute to me 
             curr_weekday = datetime.datetime(year, curr_month, curr_day).weekday()
             if curr_weekday == 4: # bruh how is 5 sat and 4 fri, because 0 is first 
                 # how to format message 
                 formatted_message = current[5:8] + " " + str(curr_day) # off by 1 error, how 
                 return formatted_message 
-    # some paths are fucked, some are alg (off by 1) 
+    # some paths are , some are alg (off by 1) 
     # in case not in candidates how to get friday after
 
     # can calculate out next friday 
@@ -64,7 +64,7 @@ def calculate(year, denomination):
         else:
             curr_month = 7
         curr_day = int(current[9:11])
-        # how to make compatible with BC. Ok fuck off this is api search, someone else can do this and then reroute to me 
+        # how to make compatible with BC. Ok this is api search, someone else can do this and then reroute to me 
         curr_weekday = datetime.datetime(year, curr_month, curr_day).weekday()
         formatted_message = current[5:8] + " " + str(curr_day)
         return formatted_message 
@@ -106,7 +106,7 @@ else:
 # Figure out library for BC (and use it i guess) --> basically reveal, do for your own (don't want code polish  up my understanding)
 # Debug and fix bugs (just make sure to spot how the fixes have been made) --> basically reveal, do for your own (don't want code polish  up my understanding)
 # Baby math out the bonus point (if nobody else can do it might be matplotlib calling)
-# Baby api browsing and using ( gay) 
+# Baby api browsing and using 
 # period is smaller for some reason, first 4 days for some reason someone else can figure outhttps://www.mbie.govt.nz/assets/maSpring%20Equinoxtariki-dates-2022-to-2052-matariki-advisory-group.pdf
 #sources lmao https://www.mbie.govt.nz/assets/matariki-dates-2022-to-2052-matariki-advisory-group.pdf
 
