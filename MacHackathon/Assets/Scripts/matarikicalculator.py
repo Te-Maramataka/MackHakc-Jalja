@@ -56,16 +56,17 @@ def calculate(year, denomination):
     # less than 5 
     
     # annoying same as previous but uses the min and needs absolute value 
-    if first_weekday 
+
+    # if first_weekday == 0:
     if curr_weekday < 4:
         diff = 4 - curr_weekday
     else:
         diff = 5 + 6 - curr_weekday # because datetime is stupid 
 
-    if first_weekday < 4:
-        diff = - 5 - 6 + first_weekday 
-    else:
-        diff = first_weekday- 4
+    # if first_weekday < 4:
+    #     diff = - 5 - 6 + first_weekday 
+    # else:
+    #     diff = first_weekday- 4
 
     current = moon_data['datetime_str'][candidates[-1]+diff] # stupid 
     
@@ -104,12 +105,10 @@ print(f"Matariki will occur on {calculate(year, denomination)} for the year {yea
 
 
 # If the starting of Tangaroa is on a weekend, Friday before it will be used. Otherwise, the following Friday is used instead. 
-# Matariki defaults to the closest if equally close. from sample cases "In that case, the Friday after the Tangaroa period will be the holiday." Liang is saying this but why, this is literally contrary to definitions the goverment layed out. I need to send liang a message 
 # Figure out library for BC (line 30 requires, datetime can't handle BC), apparently https://docs.astropy.org/en/stable/time/index.html is it
-# final debug 
 # final psuedocode 
 
-# Ur guys job: 
+# Ur guys jobs
 # chuck the main code into main, make it work with system parameters, and place that before the calculate function (looks cleaner)
 # calling from C# someone else figure out: https://www.youtube.com/watch?v=g1VWGdHRkHs&ab_channel=AllTech
 # interface debugging from C# end instead of from python's command line, might brick up, rather have a c# error message 
@@ -123,11 +122,14 @@ print(f"Matariki will occur on {calculate(year, denomination)} for the year {yea
 # Reusability: Resolving into functions 15 
 # Documentation: Comments + Separate page explaining 10 
 
-# Unneccissary to do these do these if you wish to torture yourself:
+# Unneccissary to do these, do these if you wish to torture yourself:
 # holy even more niche --> day where less than previous, but peaks in the middle  like 160 PEAK 161 <-- actually the mega math, which ones do you have to check to be certain this isn't occuring. Since i can't solve this imma stop everything 
 # Explain the math needed for the bonus point (at the bottom of the factors, if we don't assume June 19th start) (if don't know how to do might have to use matplotlib)
 # Figure out how to use the API for the bonus point and use it. # yeah if we right we right, who cares
 # wonder if there is a way to not have limitations 
+
+# How to test: 
+# python C:\Users\waste\Documents\GitHub\MackHakc-Jalja\MacHackathon\Assets\Scripts\matarikicalculator.py 2022 AD
 
 # TEST CASES to show that you are actually correct (documentation) 
 # Idk all dates given by government work just list some out in the documentation
@@ -149,7 +151,6 @@ print(f"Matariki will occur on {calculate(year, denomination)} for the year {yea
 
 #Extra jobs (IGNORE)
 #use get request api as last resort --> might need to learn for engineering science comp 
-
 
     # if minus_diff <= plus_diff: # why is it less or equal, when does it state that it is broken broken 
     #     current = moon_data['datetime_str'][max(candidates[0]-minus_diff, 0)] # stupid 
