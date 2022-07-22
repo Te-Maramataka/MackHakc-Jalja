@@ -6133,10 +6133,10 @@ AudioSource:
   m_GameObject: {fileID: 1755390580}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 7569c2fa8d5ae4648bc300804b5cf47f, type: 2}
   m_audioClip: {fileID: 8300000, guid: e849c76ee8c3d49f691b8584105e2ed9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.88
+  m_Volume: 0.357
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6247,7 +6247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2117b63ce2a6430ca772b964837cab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 7569c2fa8d5ae4648bc300804b5cf47f, type: 2}
 --- !u!1 &1761204223
 GameObject:
   m_ObjectHideFlags: 0
@@ -7708,8 +7708,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1755390583}
         m_TargetAssemblyTypeName: OptionMenu, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+        m_MethodName: setSFXVolume
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
