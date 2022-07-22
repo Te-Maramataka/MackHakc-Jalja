@@ -60,6 +60,20 @@ namespace RunPythonScriptFromCS
 
         }
 
+// make the input debugging which is currently on the python file located here, and replicate the debugging and remove the debugging on the python file
+// if len(sys.argv) < 3:
+//     print("Usage: matarikicalculator.py year AD/BC") # relative to nz definate ? 
+    
+// elif sys.argv[1].isnumeric() == False: 
+//     print("Year has to be a number") # what if you want BC? might be easy accept negative numbers
+// elif sys.argv[2] != "AD" and sys.argv[2] != "BC": 
+//     print("Third argument is not AD or BC")
+// else:
+//     year = int(sys.argv[1]) # need error prevention
+//     denomination = sys.argv[2]
+//     print(f"Matariki will occur on {calculate(year, denomination)} for the year {year} {denomination}")# obviously not done 
+
+
         // static void Option2_IronPython()
         // {
         //     // 1) Create engine
