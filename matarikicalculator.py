@@ -55,7 +55,6 @@ def calculate(year, denomination):
     # in case not in candidates, it is outside of the tangaroa period so we need to find it 
     # less than 5 
     # annoying same as previous but uses the min and needs absolute value 
-    if first_weekday
     if curr_weekday < 4:
         diff = 4 - curr_weekday
     else:
