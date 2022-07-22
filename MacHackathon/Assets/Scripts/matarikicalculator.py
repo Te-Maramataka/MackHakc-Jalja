@@ -5,9 +5,11 @@ import datetime # cringe can only handle ad, loss
 import arrow
 
 def calculate(year, denomination):
+    # 1. expanded to 6-17 because inclusive of transition day #2. dates before that are buffer days (7 more cos ensures week cycle never issue)
     # 301 is the id of the moon, geo refers to from earth and epochs are the start stop step for days which data we want to take from, and are variable. Epheremides print the astronomical data
     moon_data = Horizons(id='301', location='geo', epochs={'start':f'{denomination} {year}-06-17','stop':f'{denomination} {year}-07-19','step':'1d'}).ephemerides() 
     # alpha refers to the STO angle, long story short, [0] is first angle value. The angle will be a float
+    buffer_moon_data = Horizons(id='301', location='geo', epochs={'start':f'{denomination} {year}-06-10','stop':f'{denomination} {year}-06-17','step':'1d'}).ephemerides()  # literally no shot this works
     prev = float(moon_data['alpha'][0]) 
     candidates = []
     tangaroa = False # Method might be bad, don't like random booleans
@@ -32,6 +34,7 @@ def calculate(year, denomination):
     for i in candidates: 
         current = moon_data['datetime_str'][i] # datetime_str is the date info for each day
         # IN CASE BC IS GIVEN AS A PARAMETER, 'b' WILL BE THE FIRST VALUE, SO THIS IS THE CASE FOR BC
+        
         if current[0] == 'b': 
             pass
         else: 
@@ -47,6 +50,7 @@ def calculate(year, denomination):
             curr_weekday = datetime.datetime(year, curr_month, curr_day).weekday()
             if i == candidates[0]: # if first candidate 
                 first_weekday = curr_weekday
+
             # weekday() returns 0-6 for monday to sunday
             if curr_weekday == 4: 
                 formatted_message = current[5:8] + " " + str(curr_day) 
@@ -56,20 +60,28 @@ def calculate(year, denomination):
     # less than 5 
     
     # annoying same as previous but uses the min and needs absolute value 
+    # meaning it is a weekend 
+    if first_weekday == 5 or first_weekday == 6:
+        if first_weekday < 4:
+            diff = - 5 - 6 + first_weekday 
+        else:
+            diff = first_weekday- 4
+        # moon_data = buffer_moon_data.extend(moon_data)
+        # moon_datetime = moon_data['datetime_str']
+        # buffer_moon_datetime = buffer_moon_data['datetime_str']
+        # moon_datetime = buffer_moon_datetime.extend(moon_datetime)
+        if candidates[0]-diff < 0: 
+            current = buffer_moon_data['datetime_str'][-diff] # stupid 
+        else: 
+            current = moon_data['datetime_str'][candidates[0]-diff] # stupid 
 
-    # if first_weekday == 0:
-    if curr_weekday < 4:
-        diff = 4 - curr_weekday
-    else:
-        diff = 5 + 6 - curr_weekday # because datetime is stupid 
+    else: 
+        if curr_weekday < 4:
+            diff = 4 - curr_weekday
+        else:
+            diff = 5 + 6 - curr_weekday # because datetime is stupid 
+        current = moon_data['datetime_str'][candidates[-1]+diff] # stupid 
 
-    # if first_weekday < 4:
-    #     diff = - 5 - 6 + first_weekday 
-    # else:
-    #     diff = first_weekday- 4
-
-    current = moon_data['datetime_str'][candidates[-1]+diff] # stupid 
-    
     # interpretation, tangaroa lunar period 
     if current[0] == 'b':
         # finish it off after stuff below, same as above 
@@ -85,30 +97,31 @@ def calculate(year, denomination):
         curr_weekday = datetime.datetime(year, curr_month, curr_day).weekday()
         formatted_message = current[5:8] + " " + str(curr_day)
         return formatted_message 
-    return "how"
+    return "Well it looks like you have found an error" # turn this into a
 
-# if there are less than 3 arguments, since the name of the file is counted as an argument and we need two arguments for year and denomination
-if len(sys.argv) < 3:
-    print("Usage: matarikicalculator.py year AD/BC")
-# if year doesn't consist of numbers (invalid input)
-elif sys.argv[1].isnumeric() == False: 
-    print("Year has to be a positive number") 
-elif sys.argv[2] != "AD" and sys.argv[2] != "BC": 
-    print("Third argument is not AD or BC")
-else:
-    year = int(sys.argv[1]) # since we know it is numeric
-    denomination = sys.argv[2] 
-    # calculate function processes code needed for task 
+# # if there are less than 3 arguments, since the name of the file is counted as an argument and we need two arguments for year and denomination
+# if len(sys.argv) < 3:
+#     print("Usage: matarikicalculator.py year AD/BC")
+# # if year doesn't consist of numbers (invalid input)
+# elif sys.argv[1].isnumeric() == False: 
+#     print("Year has to be a positive number") 
+# elif sys.argv[2] != "AD" and sys.argv[2] != "BC": 
+#     print("Third argument is not AD or BC")
+# else:
+#     year = int(sys.argv[1]) # since we know it is numeric
+#     denomination = sys.argv[2] 
+#     # calculate function processes code needed for task 
 
-
-print(f"Matariki will occur on {calculate(year, denomination)} for the year {year} {denomination}")# obviously not done 
-
-
-# If the starting of Tangaroa is on a weekend, Friday before it will be used. Otherwise, the following Friday is used instead. 
-# Figure out library for BC (line 30 requires, datetime can't handle BC), apparently https://docs.astropy.org/en/stable/time/index.html is it
-# final psuedocode 
+years = [2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2047,2048,2049,2050,2051,2052]
+denomination = "AD"
+for year in years: 
+    print(f"Matariki will occur on {calculate(year, denomination)} for the year {year} {denomination}")# obviously not done 
+# use comp1 (current results) comp 2 (previous results) realone (actual correct outputs) to debug, good luck
 
 # Ur guys jobs
+# debug my current code cbs 
+# Figure out library for BC (line 30 requires, datetime can't handle BC), apparently https://docs.astropy.org/en/stable/time/index.html is it
+# debug all possible years i guess...... watch out for error message
 # chuck the main code into main, make it work with system parameters, and place that before the calculate function (looks cleaner)
 # calling from C# someone else figure out: https://www.youtube.com/watch?v=g1VWGdHRkHs&ab_channel=AllTech
 # interface debugging from C# end instead of from python's command line, might brick up, rather have a c# error message 
@@ -116,6 +129,8 @@ print(f"Matariki will occur on {calculate(year, denomination)} for the year {yea
 # No ephemeris for target "Moon" after A.D. 9999-DEC-30 
 # No ephemeris for target "Moon" prior to B.C. 9999-MAR-15 
 # AD Horizons Error: Cannot interpret date <-- from 999999999999999 way too high 
+# return "Well it looks like you have found an error" # turn this into an actual error message in unity itself
+
 # + Stuff for hackathon rubric 
 # Readability: Comments + Readable Code 15 
 # Efficiency: Speed + Elegancy 10 
@@ -146,13 +161,10 @@ print(f"Matariki will occur on {calculate(year, denomination)} for the year {yea
 # Take into consideration if it is a clear day.... NAH government is wrong
 
 # Test case runner: 
+# modcheck
 
 #sources (add onto these): https://www.mbie.govt.nz/assets/matariki-dates-2022-to-2052-matariki-advisory-group.pdf
 
 #Extra jobs (IGNORE)
 #use get request api as last resort --> might need to learn for engineering science comp 
 
-    # if minus_diff <= plus_diff: # why is it less or equal, when does it state that it is broken broken 
-    #     current = moon_data['datetime_str'][max(candidates[0]-minus_diff, 0)] # stupid 
-    # else: 
-    #     current = moon_data['datetime_str'][candidates[-1]+plus_diff] # stupid 
