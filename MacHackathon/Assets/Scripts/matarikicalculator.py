@@ -102,7 +102,6 @@ def calculate(year, denomination):
     return "Error occured" # turn this into AD
 
 
-'''
 if len(sys.argv) < 3: # if there are less than 3 arguments, since the name of the file is counted as an argument and we need two arguments for year and denomination
     print("Usage: matarikicalculator.py year AD/BC") 
 elif sys.argv[1].isnumeric() == False: 
@@ -113,7 +112,7 @@ else:
     year = int(sys.argv[1]) # since we know it is numeric
     denomination = sys.argv[2] 
     # calculate function processes code needed for task 
-'''
+
 
 
 years = [year for year in range(2022,2053)]
@@ -124,9 +123,8 @@ for year in years:
 
 # use comp1 (current results) comp 2 (previous results) realone (actual correct outputs) to debug, good luck
 
-'''
 # Ur guys jobs
-    # debug my current code 
+    # random new condition
     # Figure out library for BC (line 30 requires, datetime can't handle BC), apparently https://docs.astropy.org/en/stable/time/index.html is it
     # debug all possible years i guess...... watch out for error message
     # chuck the main code into main, make it work with system parameters, and place that before the calculate function (looks cleaner)
@@ -137,6 +135,8 @@ for year in years:
     # No ephemeris for target "Moon" prior to B.C. 9999-MAR-15 
     # AD Horizons Error: Cannot interpret date <-- from 999999999999999 way too high 
     # Line 104 return "Error occured" # turn this into an actual error message in unity itself
+    # work out bc from ad backwards - fine if omitted 
+
 
 # + Stuff for hackathon rubric 
     # Readability: Comments + Readable Code 15 
@@ -173,4 +173,4 @@ for year in years:
 
 #Extra jobs (IGNORE)
     #use get request api as last resort --> might need to learn for engineering science comp
-'''
+
