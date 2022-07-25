@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorChildObject: {fileID: 14246744}
-  objectToPlace: {fileID: 829548017949505549, guid: 8982d682b14facd41b8d5baed9b5ad74, type: 3}
+  objectToPlace: {fileID: 7265885020987827019, guid: f4d55595a48e8084ba6ba9cebc9a6f2a, type: 3}
   raycastManager: {fileID: 1897555200}
   useCursor: 0
 --- !u!1 &1593625202
@@ -558,6 +558,7 @@ GameObject:
   - component: {fileID: 1593625206}
   - component: {fileID: 1593625205}
   - component: {fileID: 1593625204}
+  - component: {fileID: 1593625209}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -674,6 +675,14 @@ Transform:
   m_Father: {fileID: 1897555199}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!124 &1593625209
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593625202}
+  m_Enabled: 1
 --- !u!1 &1897555197
 GameObject:
   m_ObjectHideFlags: 0
