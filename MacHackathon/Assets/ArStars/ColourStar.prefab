@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 96b529d4b1bf1dd4d9999f9eb09730b7, type: 2}
     - target: {fileID: 919132149155446097, guid: a996464f9712678478a98a9f47b865c2, type: 3}
       propertyPath: m_Name
-      value: BasicStar
+      value: ColourStar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a996464f9712678478a98a9f47b865c2, type: 3}
@@ -86,7 +86,7 @@ LensFlare:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5607278193485366656}
   m_Enabled: 1
-  m_Flare: {fileID: 12100000, guid: aa0cd1924d4e06f4a97da4aa9622cc75, type: 2}
+  m_Flare: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Brightness: 4.06
   m_FadeSpeed: 2.99
