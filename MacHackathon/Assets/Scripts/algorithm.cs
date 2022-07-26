@@ -80,7 +80,7 @@ public class algorithm : MonoBehaviour
     static DateTime FirstFriday(DateTime Date)
     {
         int counterPlus = 0;
-        int counterMinus = 0;
+        //int counterMinus = 0;
 
         DateTime TempDatePlus = Date;
         //counting forward
