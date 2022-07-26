@@ -5,11 +5,13 @@ import datetime # unfortunately only handles AD
 import arrow
 
 def calculate(year, denomination):
-    moon_data = Horizons(id='301', location='geo', epochs={'start':f'{denomination} {year}-06-17','stop':f'{denomination} {year}-07-19','step':'1d'}).ephemerides()
+    # date is now offset with current being in the middle
+    moon_data = Horizons(id='301', location='geo', epochs={'start':f'{denomination} {year}-05-27','stop':f'{denomination} {year}-07-19','step':'1d'}).ephemerides()
     # 1. expanded to 6-17 because inclusive of transition day #2. dates before that are buffer days (7 more because ensures week cycle never issue)
     # 301 is the id of the moon, geo refers to from earth and epochs are the start stop step for days with data we want to take from, and are variable. Epheremides prints the astronomical data
-    
-    buffer_moon_data = Horizons(id='301', location='geo', epochs={'start':f'{denomination} {year}-06-10','stop':f'{denomination} {year}-06-17','step':'1d'}).ephemerides()
+    offset = 22
+
+    # buffer_moon_data = Horizons(id='301', location='geo', epochs={'start':f'{denomination} {year}-06-10','stop':f'{denomination} {year}-06-17','step':'1d'}).ephemerides()
     prev = float(moon_data['alpha'][0]) # alpha refers to the STO angle, [0] is first angle value. The angle will be a float.
     candidates = []
     tangaroa = False # method may not be optimal (random booleans)
@@ -18,16 +20,26 @@ def calculate(year, denomination):
         next_one = float(moon_data['alpha'][day+1]) 
         current = float(moon_data['alpha'][day]) 
         
-        if next_one >= 90 and current < 90: # if the numbers begin to ascend, meaning they are waning (since local maxima is new moon), and are above 90 (since 90 is quarter moon)
-            tangaroa = True # the tangaroa period begins
-        if tangaroa == True: # begin taking candidate matariki values
-            if prev <= current: # if ascending
-                candidates.append(day)
-            else: 
-                break # moon is starting to reappear, tangaroa period is finished
+        if next_one < current and prev < current: # if the numbers begin to ascend, meaning they are waning (since local maxima is new moon), and are above 90 (since 90 is quarter moon)
+            first_tangaroa = day +22 
+            break
+        prev = current
+    
+    prev = 0
+    for possible_tangaroa in range(first_tangaroa, 32 + offset):
+        current = float(moon_data['alpha'][possible_tangaroa]) 
+        if prev <= current: # if ascending
+            candidates.append(possible_tangaroa)
+        else: 
+            break # moon is starting to reappear, tangaroa period is finished
         prev = current # iterate through angles
+    
     candidates = candidates[0:min(len(candidates),4)] #period is smaller and first 4 days for some reason, use https://www.mbie.govt.nz/assets/maSpring%20Equinoxtariki-dates-2022-to-2052-matariki-advisory-group.pdf. Min in case not 4 candidates in list
+    # cv paste then fix instead of cv paste then debug for ages 
 
+    # same stuff but this time don't make a mistake
+    
+    # so we back in the mine
 
     # random notes:
     # day after local maxima value is not included as moon is technically the start of the morning, (days are in a cycle) 
@@ -61,22 +73,21 @@ def calculate(year, denomination):
     # in case matariki is not in candidates, it is outside of the tangaroa period so we need to find it 
     # this value is less than 5 
     
+    # would put it in functions but the stuff isn't reusable
+
+    # fail 
     # same as previous issue but uses the min and needs absolute value, meaning it is a weekend
     if first_weekday == 5 or first_weekday == 6:
         if first_weekday < 4:
             diff = first_weekday - 5 - 6
         else:
             diff = first_weekday - 4
-        '''
-        moon_data = buffer_moon_data.extend(moon_data)
-        moon_datetime = moon_data['datetime_str']
-        buffer_moon_datetime = buffer_moon_data['datetime_str']
-        moon_datetime = buffer_moon_datetime.extend(moon_datetime)
-        '''
-        if candidates[0]-diff < 0: 
-            current = buffer_moon_data['datetime_str'][-diff] # lines 82-84 questionable 
-        else: 
-            current = moon_data['datetime_str'][candidates[0]-diff]
+        
+        # moon_data = buffer_moon_data.extend(moon_data)
+        # moon_datetime = moon_data['datetime_str']
+        # buffer_moon_datetime = buffer_moon_data['datetime_str']
+        # moon_datetime = buffer_moon_datetime.extend(moon_datetime)
+        current = moon_data['datetime_str'][candidates[0]-diff]
 
     else: 
         if curr_weekday < 4:
@@ -112,14 +123,15 @@ else:
     year = int(sys.argv[1]) # since we know it is numeric
     denomination = sys.argv[2] 
     # calculate function processes code needed for task 
-
-
-
-years = [year for year in range(2022,2053)]
-denomination = "AD"
-
-for year in years: 
     print(f"Matariki will occur on {calculate(year, denomination)} for the year {year} {denomination}")# obviously not done
+
+
+
+# years = [year for year in range(2022,2053)]
+# denomination = "AD"
+
+# for year in years: 
+#     print(f"Matariki will occur on {calculate(year, denomination)} for the year {year} {denomination}")# obviously not done
 
 # use comp1 (current results) comp 2 (previous results) realone (actual correct outputs) to debug, good luck
 

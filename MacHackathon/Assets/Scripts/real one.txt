@@ -1,15 +1,15 @@
 24 June
 14 July
 28 June
-20 June
+20 June X 2025 Wrong one maybe
 10 July
 25 June
 14 July
-6 July
-21 June
+6 July 
+21 June 
 11 July
 2 July
-24 June
+24 June X 2033 objectively wrong
 7 July
 29 June
 18 July 
@@ -17,10 +17,10 @@
 25 June
 15 July
 6 July
-19 July
+19 July X 2041 
 11 July
 3 July
-24 June
+24 June X 2044
 7 July
 29 June
 19 July
@@ -29,3 +29,5 @@
 15 July
 30 June
 21 June
+
+- ok back to this stage. which is where I quit because I literally don't get why i'm wrong 
