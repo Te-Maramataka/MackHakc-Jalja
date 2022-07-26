@@ -14,20 +14,22 @@ def calculate(year, denomination):
     # buffer_moon_data = Horizons(id='301', location='geo', epochs={'start':f'{denomination} {year}-06-10','stop':f'{denomination} {year}-06-17','step':'1d'}).ephemerides()
     prev = float(moon_data['alpha'][0]) # alpha refers to the STO angle, [0] is first angle value. The angle will be a float.
     candidates = []
-    tangaroa = False # method may not be optimal (random booleans)
-    
+    # FINDS PREVIOUS NEW MOON
+
     for day in range(1,32): # run through all dates which could possibly be matariki (July 19th limit) 
         next_one = float(moon_data['alpha'][day+1]) 
         current = float(moon_data['alpha'][day]) 
-        
+        # FOUND IF LOCAL MAXIMUM     
         if next_one < current and prev < current: # if the numbers begin to ascend, meaning they are waning (since local maxima is new moon), and are above 90 (since 90 is quarter moon)
-            first_tangaroa = day +22 
+            first_tangaroa = day + 22 
             break
         prev = current
     
+    # GRAB TANGAROA PERIOD DATES 
     prev = 0
     for possible_tangaroa in range(first_tangaroa, 32 + offset):
         current = float(moon_data['alpha'][possible_tangaroa]) 
+        # GRABS ALL TANGAROA PERIOD, STOPS WHEN DECREASING (moon starts increasing again)
         if prev <= current: # if ascending
             candidates.append(possible_tangaroa)
         else: 
@@ -45,11 +47,11 @@ def calculate(year, denomination):
     # day after local maxima value is not included as moon is technically the start of the morning, (days are in a cycle) 
     # has to begin after 19 June. Entire period has to begin after 19th June  
 
-
+    # SEE IF TANGAROA PERIOD IS A FRIDAY 
     for c in candidates: 
         current = moon_data['datetime_str'][c] # datetime_str is the date info for each day
         # IN CASE BC IS GIVEN AS A PARAMETER, 'b' WILL BE THE FIRST VALUE, SO THIS IS THE CASE FOR BC
-        
+         
         if current[0] == 'b': 
             pass
         else: 
@@ -58,7 +60,6 @@ def calculate(year, denomination):
                 curr_month = 6 
             else:
                 curr_month = 7 
-            pass # take day from string
             curr_day = int(current[9:11])
             curr_weekday = datetime.datetime(year, curr_month, curr_day).weekday() # weekday() returns 0-6 for monday to sunday
             
@@ -77,6 +78,7 @@ def calculate(year, denomination):
 
     # fail 
     # same as previous issue but uses the min and needs absolute value, meaning it is a weekend
+    # FIRST DAY OF TANGAROA PERIOD IS WEEKEND 
     if first_weekday == 5 or first_weekday == 6:
         if first_weekday < 4:
             diff = first_weekday - 5 - 6
@@ -89,6 +91,7 @@ def calculate(year, denomination):
         # moon_datetime = buffer_moon_datetime.extend(moon_datetime)
         current = moon_data['datetime_str'][candidates[0]-diff]
 
+    # IF IT ISN"T, FIND NEXT FRIDAY 
     else: 
         if curr_weekday < 4:
             diff = 4 - curr_weekday
@@ -122,7 +125,6 @@ elif sys.argv[2] != "AD" and sys.argv[2] != "BC":
 else:
     year = int(sys.argv[1]) # since we know it is numeric
     denomination = sys.argv[2] 
-    # calculate function processes code needed for task 
     print(f"Matariki will occur on {calculate(year, denomination)} for the year {year} {denomination}")# obviously not done
 
 
@@ -163,7 +165,7 @@ else:
     # wonder if there is a way to not have limitations 
 
 # How to test: 
-    # python C:\Users\waste\Documents\GitHub\MackHakc-Jalja\MacHackathon\Assets\Scripts\matarikicalculator.py 2022 AD
+# python C:\Users\waste\Documents\GitHub\MackHakc-Jalja\MacHackathon\Assets\Scripts\matarikicalculator.py 2022 AD
 
 # TEST CASES to show that you are actually correct (documentation):
     # Idk all dates given by government work just list some out in the documentation
