@@ -7,5 +7,5 @@ https://youtu.be/ZQ9FXcrhbmA
 How to use
 1. Open up the app through your phone 
 2. Click on ar / gallery to view them 
-3. Input year (ins't implement yet)
+3. Input year (isn't implement yet)
 4. Code can be test through using either algorithm.cs or matarikicalculator.py
