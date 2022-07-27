@@ -1,7 +1,7 @@
 # MacHackathon
 A submission to the 2022 Macleans College Hackathon
 
-EDit: Rng Test video
+Edit: Rng Test video
 https://youtu.be/1IC59CO1698
 
 How to use
