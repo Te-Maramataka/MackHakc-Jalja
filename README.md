@@ -1,8 +1,8 @@
 # MacHackathon
 A submission to the 2022 Macleans College Hackathon
 
-Rng Test video
-https://youtu.be/ZQ9FXcrhbmA 
+EDit: Rng Test video
+https://youtu.be/1IC59CO1698
 
 How to use
 1. Open up the app through your phone
