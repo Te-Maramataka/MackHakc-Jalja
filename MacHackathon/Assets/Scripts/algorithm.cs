@@ -14,7 +14,6 @@ using UnityEngine.UI;
 
 public class algorithm : MonoBehaviour
 {   
-    public int testYear = 1900;
 
 
     //runner of everything
@@ -26,7 +25,7 @@ public class algorithm : MonoBehaviour
     public void StoreYear()
     {
         theYear = inputField.GetComponent<Text>().text;
-        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Answer " + MatarikiDay(Convert.ToInt32(theYear));
+        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = ("Answer: " + MatarikiDay(Convert.ToInt32(theYear))).Substring(0, 18);
     }
 
     //function returns the correct matarki day, and is the housing for the smaller algorithms
@@ -59,8 +58,7 @@ public class algorithm : MonoBehaviour
                 }
             }
         }
-
-        return Date;
+        return Date; 
     }
 
     //grabs the first day of the CORRECT last quarter moon phase
@@ -69,7 +67,7 @@ public class algorithm : MonoBehaviour
         //find number of days since Jan. 24, Wed 11:32 AM 1900 (was a 3rd quarter start)
         //jan 5th 12am was 3rd quarter start with moon age 9.92
         double days = 0;
-        days += (Date.Year - 1900) * 365.2422;
+        days += (Date.Year) * 365.2422;
         if ( DateTime.IsLeapYear(Date.Year)){
             days += 31 + 29 + 31 + 30 + 31; // jan feb mar apr may
             if (Date.Month == 6){ //if month is june
@@ -86,7 +84,8 @@ public class algorithm : MonoBehaviour
                 days += Date.Day + 30;
             }
         }
-        days -= 24;
+        days -= 9.53735307356;// correction
+        days -= 5; // subtract 5 for jan 5
         //now have the number of days since 1900
 
         //find the mod of the value to see if we are in correct moonphase
