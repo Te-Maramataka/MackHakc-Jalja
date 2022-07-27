@@ -1,38 +1,54 @@
 using UnityEngine;
 using System;
 
+//---------------------Dr Liang------------------------------
+//Welcome to the brains of our operation, our algorithm,
+//it works by finding the amount of lunar cycles that have occured since 1900
+//it should be accurate for many years after 1900, but will degrade over a very long time as the amount of decimals we have will induce an error, can easily be fixed by having a more accurate constant
+//firstly, it calcuates the amount of days since jan 24th in 1900 lines 
+//then, it finds the mod of our lunar cycle constant, effectively finding the current lunar cycle for the given date lines
+//it repeats this until it finds a date that is in the right lunar cycle (3rd quarter), this is the tangaroa period, and the start of matariki lines
+//after this, it finds the NZ holiday day, which is the closest friday to the start of the tangaroa lines
+//you are welcome to de-comment the Debug.Logs to see the inner workings on unity
+
 public class algorithm : MonoBehaviour
 {   
-    public int testYear = 2022;
+    public int testYear = 1900;
 
+
+    //runner of everything
     public void Start(){
+        //call function
         DateTime FinalAns = MatarikiDay(testYear);
-		Debug.Log(FinalAns.Date);
+        //output data
+		Console.WriteLine(FinalAns.Date);
     }
 
-
+    //function returns the correct matarki day, and is the housing for the smaller algorithms
     public static DateTime MatarikiDay(int year)
     {
         //Functions takes the year as input and returns the date
         //return FirstFriday(MoonPhase(year)); //fix
         //29.53058770576 lunar cycle constant
         //22.14794077932 last quarter start
-        //19 june onwards
+        //19 + 1 june onwards
         //Jan. 24, Wed 11:32 AM 1900 was a 3rd quarter start
         DateTime Date = new DateTime();
-        for (int i = 19; i < 31; i++){ //check all days in june after the 19th
-            if (IsCorrectMoonPhase(new DateTime(year, 5, i))){
-                Date = new DateTime(year, 5, i);
-                Date = FirstFriday(Date);
+        for (int i = 20; i < 30; i++){ //check all days in june after the 19th
+			//Debug.Log(new DateTime(year, 6, i).Date);
+            if (IsCorrectMoonPhase(new DateTime(year, 6, i))){ //if in the right moon phase
+                Date = new DateTime(year, 6, i);
+                Date = FirstFriday(Date); //find closest friday
                 break;
             }
         }
 
-        if (Date.Month != 5){
-            for (int i = 1; i < 32; i++){ //check all days in july
-                if (IsCorrectMoonPhase(new DateTime(year, 5, i))){
-                    Date = new DateTime(year, 6, i);
-                    Date = FirstFriday(Date);
+        if (Date.Month != 6){
+            for (int i = 1; i < 31; i++){ //check all days in july
+				//Debug.Log(new DateTime(year, 6, i).Date);
+                if (IsCorrectMoonPhase(new DateTime(year, 7, i))){//if in the right moon phase
+                    Date = new DateTime(year, 7, i);
+                    Date = FirstFriday(Date); //find closest friday
                     break;
                 }
             }
@@ -41,10 +57,10 @@ public class algorithm : MonoBehaviour
         return Date;
     }
 
-    //grabs the first day of the CORRECT second quarter moon phase
+    //grabs the first day of the CORRECT last quarter moon phase
     static bool IsCorrectMoonPhase(DateTime Date)
     {
-        //find number of days since Jan. 24, Wed 11:32 AM 1900 was a 3rd quarter start
+        //find number of days since Jan. 24, Wed 11:32 AM 1900 (was a 3rd quarter start)
         double days = 0;
         days += (Date.Year - 1900) * 365.2422;
         if ( DateTime.IsLeapYear(Date.Year)){
@@ -68,7 +84,7 @@ public class algorithm : MonoBehaviour
 
         //find the mod of the value to see if we are in correct moonphase
         double currentPhase = days % 29.53058770576;
-        if (currentPhase >= 0f && currentPhase <= 7.38264692644f) {
+        if (currentPhase >= 0f && currentPhase <= 7.38264692644f) { //are we in right moon phase
             return true;
         }
         else {
@@ -79,30 +95,35 @@ public class algorithm : MonoBehaviour
     //finds closest friday to the Tangaroa Lunar Period
     static DateTime FirstFriday(DateTime Date)
     {
-        int counterPlus = 0;
-        //int counterMinus = 0;
+        int counterPlus = 0; //counters to keep track of how far the friday is from start of tangaroa period
+        int counterMinus = 0;
 
         DateTime TempDatePlus = Date;
+		DateTime TempDateMinus = Date;
         //counting forward
-        while ((int) TempDatePlus.DayOfWeek != 4){
-            TempDatePlus = new DateTime(TempDatePlus.Year, TempDatePlus.Month, TempDatePlus.Day + 1);
+        while ((int) TempDatePlus.DayOfWeek != 5){ //if friday
+            TempDatePlus = TempDatePlus.AddDays(1); //increment day
+            //Debug.Log(TempDateMinus.Date);
             counterPlus += 1;
-            Debug.Log(counterPlus);
         }
-        //Debug.Log("now minus");
-        //DateTime TempDateMinus = Date;
-        ////counting backward
-        //while ((int) TempDateMinus.DayOfWeek != 4){
-        //    TempDatePlus = new DateTime(TempDatePlus.Year, TempDatePlus.Month, TempDatePlus.Day - 1);
-        //    counterMinus += 1;
-        //    Debug.Log(counterMinus);
-        //}
-//
-        //if (counterMinus > counterPlus){
-            return TempDatePlus;
-        //} 
-        //else {
-        //    return TempDateMinus;
-        //}     
+		
+		//Debug.Log(counterPlus);
+		
+        //counting Backward
+        while ((int) TempDateMinus.DayOfWeek != 5){ //if friday
+            TempDateMinus = TempDateMinus.AddDays(-1); //decrement day
+			//Debug.Log(TempDateMinus.Date);
+            counterMinus += 1;
+        }
+		
+		//Debug.Log(counterMinus);
+		
+		//final result, see if forward or back is larger
+        if (counterMinus > counterPlus){ //is back larger?
+            return TempDatePlus; //return holiday date
+        } 
+        else {
+            return TempDateMinus; //return holiday date
+        }     
     }
 }
