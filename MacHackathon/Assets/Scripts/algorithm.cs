@@ -25,7 +25,7 @@ public class algorithm : MonoBehaviour
     public void StoreYear()
     {
         theYear = inputField.GetComponent<Text>().text;
-        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = ("Answer: " + MatarikiDay(Convert.ToInt32(theYear))).Substring(0, 18);
+        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = ("Answer: " + MatarikiDay(Convert.ToInt32(theYear))).Substring(0, 17);
     }
 
     //function returns the correct matarki day, and is the housing for the smaller algorithms
