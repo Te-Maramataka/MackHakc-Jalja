@@ -672,7 +672,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gallary
+  m_text: Gallery
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9f603ce44bc4e4dc9adb4a5f934d1285, type: 2}
   m_sharedMaterial: {fileID: -921296536396116782, guid: 9f603ce44bc4e4dc9adb4a5f934d1285, type: 2}
@@ -1680,7 +1680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f6b7437f7b047eab024be57207427a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testYear: 1900
   theYear: 
   inputField: {fileID: 1021531299}
   textDisplay: {fileID: 1738552977}
@@ -2208,7 +2207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &700710663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8420,7 +8419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1990951142
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8905,8 +8904,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "This project was made for Macleans College's Hackathon event.\n\nTeam
-    members: \n  - Arnav\n  - Alex\n  - Joshua\n  - Jerry\n  - Leo\n\n\nCheers for
-    using our app :)\n\n-Jalja studio\n\nContact: jerrysun.nz@gmail.com\n"
+    members: \n  - Arnav\n  - Alex\n  - Jerry\n  - Leo\n\n\nCheers for using our
+    app :)\n\n-Jalja studio\n\nContact: jerrysun.nz@gmail.com\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 894134c1fe4a84e9ba4a663d9f5de254, type: 2}
   m_sharedMaterial: {fileID: 1077672748910164558, guid: 894134c1fe4a84e9ba4a663d9f5de254, type: 2}
