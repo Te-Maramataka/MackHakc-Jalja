@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 //---------------------Dr Liang------------------------------
 //Welcome to the brains of our operation, our algorithm,
@@ -17,11 +18,15 @@ public class algorithm : MonoBehaviour
 
 
     //runner of everything
-    public void Start(){
-        //call function
-        DateTime FinalAns = MatarikiDay(testYear);
-        //output data
-		Console.WriteLine(FinalAns.Date);
+    public string theYear;
+    public GameObject inputField;
+    public GameObject textDisplay;
+
+
+    public void StoreYear()
+    {
+        theYear = inputField.GetComponent<Text>().text;
+        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Answer " + MatarikiDay(Convert.ToInt32(theYear));
     }
 
     //function returns the correct matarki day, and is the housing for the smaller algorithms
@@ -33,6 +38,7 @@ public class algorithm : MonoBehaviour
         //22.14794077932 last quarter start
         //19 + 1 june onwards
         //Jan. 24, Wed 11:32 AM 1900 was a 3rd quarter start
+        //jan 5th 12am was 3rd quarter start with moon age 9.92
         DateTime Date = new DateTime();
         for (int i = 20; i < 30; i++){ //check all days in june after the 19th
 			//Debug.Log(new DateTime(year, 6, i).Date);
@@ -61,6 +67,7 @@ public class algorithm : MonoBehaviour
     static bool IsCorrectMoonPhase(DateTime Date)
     {
         //find number of days since Jan. 24, Wed 11:32 AM 1900 (was a 3rd quarter start)
+        //jan 5th 12am was 3rd quarter start with moon age 9.92
         double days = 0;
         days += (Date.Year - 1900) * 365.2422;
         if ( DateTime.IsLeapYear(Date.Year)){
