@@ -6,7 +6,7 @@ using UnityEngine.UI;
 //Welcome to the brains of our operation, our algorithm,
 //it works by finding the amount of lunar cycles that have occured since 1900
 //it should be accurate for many years after 1900, but will degrade over a very long time as the amount of decimals we have will induce an error, can easily be fixed by having a more accurate constant
-//firstly, it calcuates the amount of days since jan 24th in 1900 lines 
+//firstly, it calcuates the amount of days since jan 5th 0001 lines 
 //then, it finds the mod of our lunar cycle constant, effectively finding the current lunar cycle for the given date lines
 //it repeats this until it finds a date that is in the right lunar cycle (3rd quarter), this is the tangaroa period, and the start of matariki lines
 //after this, it finds the NZ holiday day, which is the closest friday to the start of the tangaroa lines
